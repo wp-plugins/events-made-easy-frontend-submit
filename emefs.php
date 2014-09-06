@@ -96,16 +96,12 @@ class EMEFS {
    var $settings;
 	
    function __construct() {
-      if (!function_exists('eme_new_event')) {
-         add_action('admin_notices', array(__CLASS__, 'do_dependencies_notice'));
-      } else {
-         // Load settings page
-         if (!class_exists("emefs_settings"))
-            require(EMEFS_PLUGIN_DIR . 'emefs-settings.php');
-         $this->settings=new EMEFS_Settings();
+      if ((function_exists('is_multisite') && is_multisite() && array_key_exists('events-made-easy/events-manager.php',get_site_option('active_sitewide_plugins'))) || in_array('events-made-easy/events-manager.php', apply_filters('active_plugins', get_option( 'active_plugins' )))) {
          add_action('init', array($this,'init') );
          register_activation_hook( __FILE__, array($this,'activate') );
          register_deactivation_hook( __FILE__, array($this,'deactivate') );
+      } else {
+         add_action('admin_notices', array(__CLASS__, 'do_dependencies_notice'));
       }
    }
 
@@ -151,6 +147,10 @@ class EMEFS {
    function init() {
       load_plugin_textdomain( 'emefs', EMEFS_PLUGIN_DIR . 'lang',
             basename( dirname( __FILE__ ) ) . '/lang' );
+      // Load settings page
+      if (!class_exists("emefs_settings"))
+         require(EMEFS_PLUGIN_DIR . 'emefs-settings.php');
+      $this->settings=new EMEFS_Settings();
       if (!is_admin()) {
          add_action('template_redirect', array($this, 'pageHasForm'));
          $this->processForm();
