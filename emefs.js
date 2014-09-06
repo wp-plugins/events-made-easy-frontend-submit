@@ -41,7 +41,7 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
             minLength: 1
         }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
             return jQuery( "<li></li>" )
-            .append("<a>"+htmlDecode(item.name)+'<br /><small>'+htmlDecode(item.address)+' - '+htmlDecode(item.town)+ '</small></a>')
+            .append("<a><strong>"+htmlDecode(item.name)+'</strong><br /><small>'+htmlDecode(item.address)+' - '+htmlDecode(item.town)+ '</small></a>')
             .appendTo( ul );
         };
 
