@@ -1,4 +1,4 @@
-=== EME Frontend Submit ===
+=== Events Made Easy Frontend Submit ===
 Contributors: liedekef
 Donate link: http://www.e-dynamics.be/wordpress
 Tags: events, frontend
@@ -8,11 +8,11 @@ Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A simple plugin that displays a form to allow people to enter events for the Event Made Easy plugin on a regular wordpress page.
+A simple plugin that displays a form to allow people to enter events for the Events Made Easy plugin on a regular wordpress page.
 
 == Description ==
 
-A simple plugin that displays a form to allow people to enter events for the Event Made Easy plugin on a regular wordpress page (called "Frontend Submit").
+A simple plugin that displays a form to allow people to enter events for the Events Made Easy plugin on a regular wordpress page (called "Frontend Submit").
 
 Get The Events Made Easy plugin:
 http://wordpress.org/extend/plugins/events-made-easy/
