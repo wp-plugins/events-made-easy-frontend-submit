@@ -4,7 +4,7 @@ Donate link: http://www.e-dynamics.be/wordpress
 Tags: events, frontend
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,9 @@ The overloadable files at this moment are:
    2. style.css which controls the style loaded automatically by the plugin. The default version can be found in the templates subdir.
 
 == Changelog ==
+
+= 1.0.1 =
+* Bugfix: better EME dependency checks, also work for multisite now
 
 = 1.0.0 =
 Released as seperate wordpress plugin, using it's own WP settings (no config file anymore)
