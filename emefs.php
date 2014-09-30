@@ -437,9 +437,6 @@ class EMEFS {
 			case 'location_longitude':
 				$type = 'hidden';
 				break;
-			case 'event_start_time':
-			case 'event_end_time':
-				$more = 'readonly="readonly"';
 			default:
 				$type = 'text';
 		}

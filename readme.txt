@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.2 =
+* Bugfix: time entry fields shouldn't be read-only
+
 = 1.0.1 =
 * Bugfix: better EME dependency checks, also work for multisite now
 
