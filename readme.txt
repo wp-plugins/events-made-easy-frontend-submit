@@ -43,6 +43,7 @@ The overloadable files at this moment are:
 
 = 1.0.2 =
 * Bugfix: time entry fields shouldn't be read-only
+* Bugfix: form.php wasn't localized correctly
 
 = 1.0.1 =
 * Bugfix: better EME dependency checks, also work for multisite now
