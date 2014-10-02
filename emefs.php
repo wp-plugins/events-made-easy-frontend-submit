@@ -377,9 +377,10 @@ class EMEFS {
 			$filename = 'templates/form.php';
 		}
       // check if the user wants AM/PM or 24 hour notation
-      $time_format = get_option('time_format');
+      // make sure that escaped characters are filtered out first
+      $time_format = preg_replace('/\\\\./','',get_option('time_format'));
       $show24Hours = 'true';
-      if (preg_match ( "/a/i", $time_format ))
+      if (preg_match ( "/g|h/", $time_format ))
          $show24Hours = 'false';
 
 		ob_start();
