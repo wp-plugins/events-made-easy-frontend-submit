@@ -50,17 +50,39 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
 	jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
 	
 	if(emefs_gmap_hasSelectedLocation){
-		emefs_displayAddress();
+		emefs_displayAddress(1);
 	}
-	
+
+   jQuery("input#location_name").change(function(){
+         emefs_displayAddress(0);
+   });
+   jQuery("input#location_town").change(function(){
+         emefs_displayAddress(1);
+   });
+   jQuery("input#location_address").change(function(){
+         emefs_displayAddress(1);
+   });
+   jQuery("input#location_latitude").change(function(){
+         emefs_displayAddress(0);
+   });
+   jQuery("input#location_longitude").change(function(){
+         emefs_displayAddress(0);
+   });
+
 }
 
-function emefs_displayAddress(){
+function emefs_displayAddress(ignore_coord){
 	if(emefs_gmap_enabled) {
 	   eventLocation = jQuery("input#location_name").val(); 
 	   eventTown = jQuery("input#location_town").val(); 
 	   eventAddress = jQuery("input#location_address").val();
-	   emefs_loadMap(eventLocation, eventTown, eventAddress);
+      if (ignore_coord) {
+         emefs_loadMapLatLong(eventLocation, eventTown, eventAddress);
+      } else {
+         eventLat = jQuery("input#location_latitude").val();
+         eventLong = jQuery("input#location_longitude").val();
+	      emefs_loadMapLatLong(eventLocation, eventTown, eventAddress, eventLat, eventLong);
+      }
 	}
 }
 
@@ -101,7 +123,7 @@ function emefs_loadMap(location, town, address){
 				});
 				var emefs_infowindow = new google.maps.InfoWindow({
 					content: '<strong>' + location +'</strong><p>' + address + '</p><p>' + town + '</p>'
-	      		        });
+	         });
 				emefs_infowindow.open(emefs_map,emefs_marker);
 				jQuery('input#location_latitude').val(results[0].geometry.location.lat());
 				jQuery('input#location_longitude').val(results[0].geometry.location.lng());
@@ -112,3 +134,40 @@ function emefs_loadMap(location, town, address){
 	});
 	
 }
+
+function emefs_loadMapLatLong(location, town, address, lat, long) {
+   if (lat === undefined) {
+      lat = 0;
+   }
+   if (long === undefined) {
+      long = 0;
+   }
+
+   if (lat != 0 && long != 0) {
+      var latlng = new google.maps.LatLng(lat, long);
+      var myOptions = {
+		   zoom: 12,
+		   center: latlng,
+		   scrollwheel: true,
+		   disableDoubleClickZoom: true,
+         mapTypeControlOptions: {
+            mapTypeIds:[google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+         },
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+		jQuery("#event-map").slideDown('fast',function(){
+         var emefs_map = new google.maps.Map(document.getElementById("event-map"), myOptions);
+         var emefs_marker = new google.maps.Marker({
+            map: emefs_map,
+            position: latlng
+         });
+         var emefs_infowindow = new google.maps.InfoWindow({
+            content: '<div class=\"eme-location-balloon\"><strong>' + location +'</strong><p>' + address + '</p><p>' + town + '</p></div>'
+         });
+         emefs_infowindow.open(emefs_map,emefs_marker);
+      });
+   } else {
+      emefs_loadMap(location, town, address);
+   }
+}
+

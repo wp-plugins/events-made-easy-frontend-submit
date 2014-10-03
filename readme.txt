@@ -42,6 +42,7 @@ The overloadable files at this moment are:
 == Changelog ==
 
 = 1.0.2 =
+* Improvement: show map for new locations too
 * Bugfix: time entry fields shouldn't be read-only
 * Bugfix: form.php wasn't localized correctly
 * Bugfix: better 24h timeformat notation detection
