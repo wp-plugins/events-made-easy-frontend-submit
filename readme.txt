@@ -42,6 +42,7 @@ The overloadable files at this moment are:
 == Changelog ==
 
 = 1.0.2 =
+* Feature: added an option for the location to be always created, even if the user does not have the needed capability set in EME to create locations
 * Improvement: show map for new locations too
 * Bugfix: time entry fields shouldn't be read-only
 * Bugfix: form.php wasn't localized correctly

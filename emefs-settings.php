@@ -14,7 +14,8 @@ if (!class_exists("EMEFS_Settings")) :
                'auto_publish' => STATUS_PUBLIC,
                'guest_submit' => false,
                'success_page' => 0,
-               'guest_not_allowed_page' => 0
+               'guest_not_allowed_page' => 0,
+               'force_location_creation' => 0
               );
       var $pagehook, $page_id, $settings_field, $options;
 
@@ -150,6 +151,7 @@ if (!class_exists("EMEFS_Settings")) :
           <table class="form-table">
           <?php
           eme_options_select (__('State for new event','emefs'), $this->get_field_name('auto_publish'), eme_status_array(), __ ('The state for a newly submitted event.','emefs'), $this->get_field_value('auto_publish') );
+          eme_options_radio_binary (__('Force location creation?','emefs'), $this->get_field_name('force_location_creation'), __ ( 'Check this option if you want the location to be always created, even if the user does not have the needed capability set in EME to create locations.', 'emefs' ), $this->get_field_value('guest_submit'));
           eme_options_radio_binary (__('Allow guest submit?','emefs'), $this->get_field_name('guest_submit'), __ ( 'Check this option if you want guests also to be able to add new events.', 'emefs' ), $this->get_field_value('guest_submit'));
           eme_options_select ( __ ( 'Success Page','emefs'), $this->get_field_name('success_page'), eme_get_all_pages (), __ ( 'The page a person will be redirected to after successfully submitting a new event if the person submitting the event has no right to see the newly submitted event.','emefs'), $this->get_field_value('success_page'));
           eme_options_select ( __ ( 'Guests not allowed page','emefs'), $this->get_field_name('guest_not_allowed_page'), eme_get_all_pages (), __ ( 'The page a guest will be redirected to when trying to submit a new event when they are not allowed to do so.','emefs'), $this->get_field_value('guest_not_allowed_page'));

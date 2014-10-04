@@ -268,7 +268,11 @@ class EMEFS {
 			
 			if ( !$emefs_has_errors ) {
 			
-            $event_data = self::processLocation($event_data);
+            $force=0;
+            if ($this->settings->options['force_location_creation'])
+               $force=1;
+
+            $event_data = self::processLocation($event_data, $force);
             $event_data['event_contactperson_email_body'] = esc_attr( $event_data['event_contactperson_email_body'] );
             $event_data['event_url'] = esc_url( $event_data['event_url'] );
 			
@@ -308,7 +312,7 @@ class EMEFS {
 	/* 
 	  Process the data for a new location
 	 */
-	public static function processLocation($event_data) {
+	public static function processLocation($event_data, $force=0) {
 	
 		if ( isset($event_data['location_name']) && '' != $event_data['location_name'] ) {
 			$event_data['location_name'] = esc_attr( $event_data['location_name'] );
@@ -333,7 +337,7 @@ class EMEFS {
 					'location_latitude' => $event_data['location_latitude'],
 					'location_longitude' => $event_data['location_longitude'],
 				);
-				$location = eme_insert_location($location);
+				$location = eme_insert_location($location, $force);
 			}
 			
 			$event_data['location_id'] = $location['location_id'];
