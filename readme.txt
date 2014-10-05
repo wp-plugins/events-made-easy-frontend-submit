@@ -45,6 +45,7 @@ The overloadable files at this moment are:
 * Feature: added an option for the location to be always created, even if the user does not have the needed capability set in EME to create locations
 * Feature: localise event date too
 * Improvement: show map for new locations too
+* Improvement: show entered data if the form has an error
 * Bugfix: time entry fields shouldn't be read-only
 * Bugfix: form.php wasn't localized correctly
 * Bugfix: better 24h timeformat notation detection

@@ -22,6 +22,8 @@ if (function_exists('eme_new_event')) {
          "event_name" => '',
          "event_start_date" => '',
          "event_end_date" => '',
+         "localised-start-date" => '',
+         "localised-end-date" => '',
          "event_start_time" => '00:00',
          "event_end_time" => '00:00',
          "event_rsvp" => 0,
@@ -435,6 +437,7 @@ class EMEFS {
       switch($field) {
          case 'event_notes':
             $type = 'textarea';
+            $more = "required='required'";
             break;
          case 'event_category_ids':
             $type = ($type != 'radio')?'select':'radio';
@@ -444,13 +447,18 @@ class EMEFS {
             $type = 'hidden';
             break;
          case 'event_start_date':
-            $localised_field='localised-start-date';
+            $localised_field_id='localised-start-date';
+            $more = "required='required'";
             $type = 'localised_text';
             break;
          case 'event_end_date':
-            $localised_field='localised-end-date';
+            $localised_field_id='localised-end-date';
             $type = 'localised_text';
-         case 'event_end_date':
+            break;
+         case 'event_name':
+            $more = "required='required'";
+            $type = 'text';
+            break;
          default:
             $type = 'text';
       }
@@ -458,28 +466,31 @@ class EMEFS {
       $html_by_type = array(
             'text' => '<input type="text" id="%s" name="event[%s]" value="%s" %s/>',
             'localised_text' => '<input type="text" id="%s" name="%s" value="%s" %s/>',
-            'textarea' => '<textarea id="%s" name="event[%s]">%s</textarea>',
+            'textarea' => '<textarea id="%s" name="event[%s]" %s>%s</textarea>',
             'hidden' => '<input type="hidden" id="%s" name="event[%s]" value="%s" %s />',
             );
 
       $field_id = ($field_id)?$field_id:$field;
 
       switch($type) {
-         case 'text':
          case 'textarea':
+            echo sprintf($html_by_type[$type], $field_id, $field, $more, $emefs_event_data[$field]);
+            break;
+         case 'text':
          case 'hidden':
-            //echo sprintf($html_by_type[$type], $field_id, $field, $emefs_event_data[$field], $more);
-            echo sprintf($html_by_type[$type], $field_id, $field, '', $more);
+            echo sprintf($html_by_type[$type], $field_id, $field, $emefs_event_data[$field], $more);
+            //echo sprintf($html_by_type[$type], $field_id, $field, '', $more);
             break;
          case 'localised_text':
-            echo sprintf($html_by_type['hidden'], $field_id, $field, '', $more);
-            echo sprintf($html_by_type[$type], $localised_field, $localised_field, '', $more);
+            //echo sprintf($html_by_type['hidden'], $field_id, $field, '', $more);
+            echo sprintf($html_by_type['hidden'], $field_id, $field, $emefs_event_data[$field], $more);
+            echo sprintf($html_by_type[$type], $localised_field_id, "event[$localised_field_id]", $emefs_event_data[$localised_field_id], $more);
             break;
          case 'select':
-            echo self::getCategoriesSelect();
+            echo self::getCategoriesSelect($more);
             break;
          case 'radio':
-            echo self::getCategoriesRadio();
+            echo self::getCategoriesRadio($more);
             break;
       }
    }
@@ -506,13 +517,13 @@ class EMEFS {
    /*
       Function that creates and returns a radio input set from the existing categories
     */
-   public static function getCategoriesRadio() {
+   public static function getCategoriesRadio($more) {
       global $emefs_event_data;
 
       $categories = self::getCategories();
       $category_radios = array();
       if ( $categories ) {
-         $category_radios[] = '<input type="hidden" name="event[event_category_ids]" value="0" />';
+         $category_radios[] = '<input type="hidden" name="event[event_category_ids]" value="0" '.$more.' />';
          foreach ($categories as $category){
             $checked = ($emefs_event_data['event_category_ids'] == $category['category_id'])?'checked="checked"':'';
             $category_radios[] = sprintf('<input type="radio" id="event_category_ids_%s" value="%s" name="event[event_category_ids]" %s />', $category['category_id'], $category['category_id'], $checked);
@@ -533,11 +544,11 @@ class EMEFS {
    /*
       Function that creates and returns a select input set from the existing categories
     */
-   public static function getCategoriesSelect($select_id = 'event_category_ids') {
+   public static function getCategoriesSelect($more) {
       global $emefs_event_data;
 
       $category_select = array();
-      $category_select[] = sprintf('<select id="%s" name="event[event_category_ids]" >', $select_id);
+      $category_select[] = '<select id="event_category_ids" name="event[event_category_ids]" '.$more.' >';
       $categories = self::getCategories();
       if ( $categories ) {
          $category_select[] = sprintf('<option value="%s">%s</option>', 0, '--');
@@ -548,13 +559,6 @@ class EMEFS {
       }
       $category_select[] = '</select>';
       return implode("\n", $category_select);
-   }
-
-   /*
-      Print what self::getCategoriesSelect returns
-    */
-   public static function categoriesSelect() {
-      echo self::getCategoriesSelect();
    }
 
    /*

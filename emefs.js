@@ -57,8 +57,8 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
       changeMonth: true,
       changeYear: true
    });
-   jQuery("#localised-start-date").datepick({ altField: "#start-date-to-submit", altFormat: "yyyy-mm-dd" });
-   jQuery("#localised-end-date").datepick({ altField: "#end-date-to-submit", altFormat: "yyyy-mm-dd" });
+   jQuery("#localised-start-date").datepick({ altField: "#event_start_date", altFormat: "yyyy-mm-dd" });
+   jQuery("#localised-end-date").datepick({ altField: "#event_end_date", altFormat: "yyyy-mm-dd" });
 
    jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
 	
