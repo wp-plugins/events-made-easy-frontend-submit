@@ -46,8 +46,21 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
         };
 
 	
-	jQuery("#event_start_date, #event_end_date").datepick({ dateFormat: 'yy-mm-dd' });
-	jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
+   jQuery("#localised-start-date").show();
+   jQuery("#localised-end-date").show();
+   jQuery("#event_start_date").hide();
+   jQuery("#event_end_date").hide();
+
+   locale_code=emefs.locale;
+   jQuery.datepick.setDefaults( jQuery.datepick.regional[locale_code] );
+   jQuery.datepick.setDefaults({
+      changeMonth: true,
+      changeYear: true
+   });
+   jQuery("#localised-start-date").datepick({ altField: "#start-date-to-submit", altFormat: "yyyy-mm-dd" });
+   jQuery("#localised-end-date").datepick({ altField: "#end-date-to-submit", altFormat: "yyyy-mm-dd" });
+
+   jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
 	
 	if(emefs_gmap_hasSelectedLocation){
 		emefs_displayAddress(1);
