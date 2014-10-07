@@ -566,10 +566,10 @@ class EMEFS {
     */
    public static function registerAssets() {
 
-      wp_register_script( 'jquery-datepick',EME_PLUGIN_URL.'js/jquery-datepick/jquery.datepick.js',array( 'jquery' ));
+      wp_register_script( 'jquery-plugin', EME_PLUGIN_URL.'js/jquery-datepick/jquery.plugin.min.js');
+      wp_register_script( 'jquery-datepick',EME_PLUGIN_URL.'js/jquery-datepick/jquery.datepick.js',array( 'jquery','jquery-plugin' ));
       wp_register_script( 'jquery-mousewheel', EME_PLUGIN_URL.'js/jquery-mousewheel/jquery.mousewheel.min.js', array('jquery'));
-      wp_register_script( 'jquery-plugin-timeentry', EME_PLUGIN_URL.'js/timeentry/jquery.plugin.min.js', array('jquery-mousewheel'));
-      wp_register_script( 'jquery-timeentry', EME_PLUGIN_URL.'js/timeentry/jquery.timeentry.js', array('jquery-plugin-timeentry'));
+      wp_register_script( 'jquery-timeentry', EME_PLUGIN_URL.'js/timeentry/jquery.timeentry.js', array('jquery','jquery-plugin'));
 
       wp_register_script( 'google-maps', 'http://maps.google.com/maps/api/js?v=3.1&sensor=false');
 
@@ -600,10 +600,11 @@ class EMEFS {
          // jquery ui locales are with dashes, not underscores
          $locale_code = get_locale();
          $locale_code = preg_replace( "/_/","-", $locale_code );
+         $firstDayOfWeek = get_option('start_of_week');
 
          // Now we can localize the script with our data.
-         // in our case: replace in the registered script "emefs" the string emefs.locale by $locale_code
-         $translation_array = array( 'locale' => $locale_code );
+         // in our case: replace in the registered script "emefs" the string emefs.locale by $locale_code, and emefs.firstDayOfWeek by $firstDayOfWeek
+         $translation_array = array( 'locale' => $locale_code, 'firstDayOfWeek' => $firstDayOfWeek );
          wp_localize_script( 'emefs', 'emefs', $translation_array );
          wp_enqueue_script( 'emefs' );
 

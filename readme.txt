@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.3 =
+* Feature: first day of week is now also respected in the datepicker
+
 = 1.0.2 =
 * Feature: added an option for the location to be always created, even if the user does not have the needed capability set in EME to create locations
 * Feature: localise event date too

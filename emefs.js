@@ -52,13 +52,16 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
    jQuery("#event_end_date").hide();
 
    locale_code=emefs.locale;
-   jQuery.datepick.setDefaults( jQuery.datepick.regional[locale_code] );
+   firstDay=emefs.firstDayOfWeek;
+   jQuery.datepick.setDefaults( jQuery.datepick.regionalOptions[locale_code] );
    jQuery.datepick.setDefaults({
       changeMonth: true,
-      changeYear: true
+      changeYear: true,
+      altFormat: "yyyy-mm-dd",
+      firstDay: firstDay
    });
-   jQuery("#localised-start-date").datepick({ altField: "#event_start_date", altFormat: "yyyy-mm-dd" });
-   jQuery("#localised-end-date").datepick({ altField: "#event_end_date", altFormat: "yyyy-mm-dd" });
+   jQuery("#localised-start-date").datepick({ altField: "#event_start_date" });
+   jQuery("#localised-end-date").datepick({ altField: "#event_end_date" });
 
    jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
 	
