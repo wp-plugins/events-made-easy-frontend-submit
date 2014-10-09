@@ -4,7 +4,7 @@ Plugin Name: Events Made Easy Frontend Submit
 Plugin URI: http://www.e-dynamics.be/wordpress
 Description: Displays a form to allow people to enter events for the Events Made Easy plugin on a regular wordpress page.
 Author: Franky Van Liedekerke
-Version: 1.0.2
+Version: 1.0.3
 Author URI: http://www.e-dynamics.be/wordpress
 License: GNU General Public License
 */
@@ -15,40 +15,7 @@ define( 'EMEFS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 /*
   Default Data used by the plugin
  */
-if (function_exists('eme_new_event')) {
-   $emefs_event_data=eme_new_event();
-} else {
-   $emefs_event_data = array(
-         "event_name" => '',
-         "event_start_date" => '',
-         "event_end_date" => '',
-         "localised-start-date" => '',
-         "localised-end-date" => '',
-         "event_start_time" => '00:00',
-         "event_end_time" => '00:00',
-         "event_rsvp" => 0,
-         "rsvp_number_days" => 0,
-         "registration_requires_approval" => 0,
-         "registration_wp_users_only" => 0,
-         "event_seats" => 0,
-         "event_contactperson_id" => '-1',
-         "event_notes" => '',
-         'event_page_title_format' => '',
-         'event_single_event_format' => '',
-         'event_contactperson_email_body' => '',
-         'event_respondent_email_body' => '',
-         'event_url' => '',
-         'event_category_ids' => '',
-         'event_attributes' => 'a:0:{}',
-         'location_id' => '',
-         'location_name' => '',
-         'location_address' => '',
-         'location_town' => '',
-         'location_latitude' => 0,
-         'location_longitude' => 0,
-         );
-}
-$emefs_event_data["event_status"]=5;
+$emefs_event_data = array();
 
 $emefs_event_errors = array(
 	"event_name" => false,
@@ -268,6 +235,9 @@ class EMEFS {
             }	
          }
 
+         // after submit, not all event fields are present, so we will merge the submitted data with a new event
+         $new_event = eme_new_event();
+
          if ( !$emefs_has_errors ) {
 
             $force=0;
@@ -279,12 +249,18 @@ class EMEFS {
             $event_data['event_url'] = esc_url( $event_data['event_url'] );
 
             $emefs_event_data_compiled = array_merge($emefs_event_data, $event_data);
+            $emefs_event_data_compiled = array_merge($new_event,$emefs_event_data_compiled);
             unset($emefs_event_data_compiled['action']);
 
             foreach ($emefs_event_data_compiled as $key => $value) {
+               // location info is not part of the event
                if (strpos($key,'location') !== false && $key != 'location_id') {
                   unset($emefs_event_data_compiled[$key]);
                   $location_data[$key] = $value;
+               }
+               // localised info is not part of the event
+               if (strpos($key,'localised-') !== false) {
+                  unset($emefs_event_data_compiled[$key]);
                }
             }
 
@@ -307,6 +283,7 @@ class EMEFS {
 
          } else {
             $emefs_event_data = array_merge($emefs_event_data, $event_data);	
+            $emefs_event_data = array_merge($new_event,$emefs_event_data);
          }
       }
    }
@@ -353,11 +330,27 @@ class EMEFS {
    function deployForm($atts, $content) {
       global $emefs_event_errors, $emefs_event_data;
 
+      if (empty($emefs_event_data)) {
+            if (function_exists('eme_new_event')) {
+               $emefs_event_data=eme_new_event()+eme_new_location();
+               $emefs_event_data["event_status"] = 5;
+               // the following 2 fields are not a part of an event, but are needed to prevent php notice errors when showing the form for the first time
+               $emefs_event_data["localised-start-date"] = '';
+               $emefs_event_data["localised-end-date"] = '';
+            } else {
+            ?>
+               <div class="emefs_error">
+               <h2><?php _e('Events Made Easy plugin missing', 'emefs'); ?></h2>
+               <p><?php _e("This plugin requires the plugin 'Events Made Easy' to be installed.", 'emefs'); ?></p>
+               </div>
+            <?php
+            }
+      }
       if (!$this->settings->options['success_page']) {
       ?>
             <div class="emefs_error">
             <h2><?php _e('Basic Configuration is Missing', 'emefs'); ?></h2>
-            <p>You have to configure the page where successful submissions will be redirected to.</p>
+            <p><?php _e('You have to configure the page where successful submissions will be redirected to.', 'emefs'); ?></p>
             </div>
       <?php
             return false;
@@ -367,7 +360,7 @@ class EMEFS {
       ?>
             <div class="emefs_error">
             <h2><?php _e('Basic Configuration is Missing', 'emefs'); ?></h2>
-            <p>Since you have chosen not to accept guest submissions, you have to configure the page where to redirect unauthorized users.</p>
+            <p><?php _e('Since you have chosen not to accept guest submissions, you have to configure the page where to redirect unauthorized users.', 'emefs'); ?></p>
             </div>
       <?php
             return false;

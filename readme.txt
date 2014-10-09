@@ -43,6 +43,7 @@ The overloadable files at this moment are:
 
 = 1.0.3 =
 * Feature: first day of week is now also respected in the datepicker
+* Bugfix: fix the error "Unknown column 'localised-start-date' in 'field list'" by redoing a big part of the code
 
 = 1.0.2 =
 * Feature: added an option for the location to be always created, even if the user does not have the needed capability set in EME to create locations
