@@ -52,7 +52,7 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
    jQuery("#event_end_date").hide();
 
    locale_code=emefs.locale;
-   # emefs.firstDayOfWeek gets replaced by the day of the week, but needs to be an integer otherwise the dayheaders in the calender are mangled
+   // emefs.firstDayOfWeek gets replaced by the day of the week, but needs to be an integer otherwise the dayheaders in the calender are mangled
    firstDay=parseInt(emefs.firstDayOfWeek);
    jQuery.datepick.setDefaults( jQuery.datepick.regionalOptions[locale_code] );
    jQuery.datepick.setDefaults({
