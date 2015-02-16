@@ -4,7 +4,7 @@ Plugin Name: Events Made Easy Frontend Submit
 Plugin URI: http://www.e-dynamics.be/wordpress
 Description: Displays a form to allow people to enter events for the Events Made Easy plugin on a regular wordpress page.
 Author: Franky Van Liedekerke
-Version: 1.0.5
+Version: 1.0.6
 Author URI: http://www.e-dynamics.be/wordpress
 License: GNU General Public License
 */
@@ -30,7 +30,7 @@ $emefs_event_errors = array(
 	"registration_requires_approval" => false,
 	"registration_wp_users_only" => false,
 	"event_seats" => false,
-	"event_contactperson_id" => false,
+	"event_author" => false,
 	"event_notes" => false,
 	'event_page_title_format' => false,
 	'event_single_event_format' => false,
@@ -266,6 +266,11 @@ class EMEFS {
 
             if ($this->settings->options['auto_publish']) {
                $emefs_event_data_compiled['event_status'] = $this->settings->options['auto_publish'];
+            }
+
+            if (is_user_logged_in()) {
+               $current_userid=get_current_user_id();
+               $emefs_event_data_compiled['event_author'] = $current_userid;
             }
 
             if ($event_id = eme_db_insert_event($emefs_event_data_compiled)) {
