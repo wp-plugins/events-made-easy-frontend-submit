@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.5 =
+* Bugfix: fix javascript comment preventing it to work in emefs.js
+
 = 1.0.4 =
 * Bugfix: first day of the week needs to be an integer in the javascript code, otherwise the calendar day headers are mangled
 
