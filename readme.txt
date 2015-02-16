@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.6 =
+* Bugfix: the event author was not being set correctly for logged in users
+
 = 1.0.5 =
 * Bugfix: fix javascript comment preventing it to work in emefs.js
 
