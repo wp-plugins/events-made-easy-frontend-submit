@@ -4,7 +4,7 @@ Donate link: http://www.e-dynamics.be/wordpress
 Tags: events, frontend
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,6 +40,12 @@ The overloadable files at this moment are:
    2. style.css which controls the style loaded automatically by the plugin. The default version can be found in the templates subdir.
 
 == Changelog ==
+
+= 1.0.7 =
+* Bugfix: fix location autocomplete
+
+= 1.0.6 =
+* Bugfix: the event author was not being set correctly for logged in users
 
 = 1.0.5 =
 * Bugfix: fix javascript comment preventing it to work in emefs.js
