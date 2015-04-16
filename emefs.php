@@ -392,7 +392,7 @@ class EMEFS {
       ?>
       <script type="text/javascript">
          jQuery(document).ready( function(){
-               emefs_autocomplete_url = "<?php echo EME_PLUGIN_URL; ?>locations-search.php";
+               emefs_autocomplete_url = "<?php echo EMEFS_PLUGIN_URL; ?>emefs-locations-search.php";
                emefs_gmap_enabled = 1;
                show24Hours = <?php echo $show24Hours; ?>;
                emefs_gmap_hasSelectedLocation = <?php echo ($emefs_event_data['location_id'])?'1':'0'; ?>;

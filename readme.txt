@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.7 =
+* Bugfix: fix location autocomplete
+
 = 1.0.6 =
 * Bugfix: the event author was not being set correctly for logged in users
 
