@@ -41,6 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.8 =
+* Updated translation template file (emefs.pot)
+
 = 1.0.7 =
 * Bugfix: fix location autocomplete
 
