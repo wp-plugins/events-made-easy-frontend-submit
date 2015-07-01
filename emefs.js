@@ -8,6 +8,7 @@ function htmlDecode(value){
 
 function emefs_deploy(emefs_autocomplete_url,show24Hours) {
 
+    if (jQuery("input#location_name").length > 0) {
         jQuery("input#location_name").autocomplete({
             source: function(request, response) {
                          jQuery.ajax({ url: emefs_autocomplete_url,
@@ -44,8 +45,8 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
             .append("<a><strong>"+htmlDecode(item.name)+'</strong><br /><small>'+htmlDecode(item.address)+' - '+htmlDecode(item.town)+ '</small></a>')
             .appendTo( ul );
         };
+   }
 
-	
    jQuery("#localised-start-date").show();
    jQuery("#localised-end-date").show();
    jQuery("#event_start_date").hide();
