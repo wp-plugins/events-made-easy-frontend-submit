@@ -41,6 +41,10 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
+= 1.0.9 (2015/07/01) =
+* Bugfix: only require the use of categories if those are enabled in EME
+* Bugfix: do the autocompletion for the location only if the location field is actually there
+
 = 1.0.8 =
 * Updated translation template file (emefs.pot)
 
