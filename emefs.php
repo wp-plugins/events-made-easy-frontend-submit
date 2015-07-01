@@ -222,10 +222,12 @@ class EMEFS {
             $emefs_event_errors['event_notes'] = __('Please enter a description for the event', 'emefs'); 
          }
 
-         if ( isset($event_data['event_category_ids']) && !empty($event_data['event_category_ids']) && $event_data['event_category_ids'] != 0 ) { 
-            $event_data['event_category_ids'] = (int) esc_attr( $event_data['event_category_ids'] ); 
-         } else { 
-            $emefs_event_errors['event_category_ids'] = __('Please select an Event Category', 'emefs');
+         if (get_option('eme_categories_enabled')) {
+            if ( isset($event_data['event_category_ids']) && !empty($event_data['event_category_ids']) && $event_data['event_category_ids'] != 0 ) { 
+               $event_data['event_category_ids'] = (int) esc_attr( $event_data['event_category_ids'] ); 
+            } else { 
+               $emefs_event_errors['event_category_ids'] = __('Please select an Event Category', 'emefs');
+            }
          }
 
          foreach ($emefs_event_errors as $error) {
