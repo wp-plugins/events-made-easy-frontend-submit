@@ -1,12 +1,8 @@
-var emefs_page = 0;
-var emefs_gmap_enabled = 1;
-var emefs_gmap_hasSelectedLocation = 0;
-
 function htmlDecode(value){
 	return jQuery('<div/>').html(value).text(); 
 }
 
-function emefs_deploy(emefs_autocomplete_url,show24Hours) {
+function emefs_deploy(emefs_autocomplete_url,show24Hours,emefs_gmap_enabled,emefs_gmap_hasSelectedLocation) {
 
     if (jQuery("input#location_name").length > 0) {
         jQuery("input#location_name").autocomplete({
@@ -36,7 +32,9 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
                          jQuery('input#location_town').val(ui.item.town);
                          jQuery('input#location_latitude').val(ui.item.latitude);
                          jQuery('input#location_longitude').val(ui.item.longitude);
-                         emefs_displayAddress();
+                         if (emefs_gmap_enabled) {
+                            emefs_displayAddress(0);
+                         }
                          return false;
                    },
             minLength: 1
@@ -67,41 +65,40 @@ function emefs_deploy(emefs_autocomplete_url,show24Hours) {
 
    jQuery('#event_start_time, #event_end_time').timeEntry({ hourText: 'Hour', minuteText: 'Minute', show24Hours: show24Hours, spinnerImage: '' });
 	
-	if(emefs_gmap_hasSelectedLocation){
-		emefs_displayAddress(1);
-	}
-
-   jQuery("input#location_name").change(function(){
-         emefs_displayAddress(0);
-   });
-   jQuery("input#location_town").change(function(){
+   if (emefs_gmap_enabled) {
+      if (emefs_gmap_hasSelectedLocation) {
          emefs_displayAddress(1);
-   });
-   jQuery("input#location_address").change(function(){
-         emefs_displayAddress(1);
-   });
-   jQuery("input#location_latitude").change(function(){
-         emefs_displayAddress(0);
-   });
-   jQuery("input#location_longitude").change(function(){
-         emefs_displayAddress(0);
-   });
+      }
 
+      jQuery("input#location_name").change(function(){
+            emefs_displayAddress(0);
+            });
+      jQuery("input#location_town").change(function(){
+            emefs_displayAddress(1);
+            });
+      jQuery("input#location_address").change(function(){
+            emefs_displayAddress(1);
+            });
+      jQuery("input#location_latitude").change(function(){
+            emefs_displayAddress(0);
+            });
+      jQuery("input#location_longitude").change(function(){
+            emefs_displayAddress(0);
+            });
+   }
 }
 
-function emefs_displayAddress(ignore_coord){
-	if(emefs_gmap_enabled) {
-	   eventLocation = jQuery("input#location_name").val(); 
-	   eventTown = jQuery("input#location_town").val(); 
-	   eventAddress = jQuery("input#location_address").val();
-      if (ignore_coord) {
-         emefs_loadMapLatLong(eventLocation, eventTown, eventAddress);
-      } else {
-         eventLat = jQuery("input#location_latitude").val();
-         eventLong = jQuery("input#location_longitude").val();
-	      emefs_loadMapLatLong(eventLocation, eventTown, eventAddress, eventLat, eventLong);
-      }
-	}
+function emefs_displayAddress(ignore_coord) {
+   eventLocation = jQuery("input#location_name").val(); 
+   eventTown = jQuery("input#location_town").val(); 
+   eventAddress = jQuery("input#location_address").val();
+   if (ignore_coord) {
+      emefs_loadMapLatLong(eventLocation, eventTown, eventAddress);
+   } else {
+      eventLat = jQuery("input#location_latitude").val();
+      eventLong = jQuery("input#location_longitude").val();
+      emefs_loadMapLatLong(eventLocation, eventTown, eventAddress, eventLat, eventLong);
+   }
 }
 
 function emefs_loadMap(location, town, address){

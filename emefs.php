@@ -388,6 +388,9 @@ class EMEFS {
       $show24Hours = 'true';
       if (preg_match ( "/g|h/", $time_format ))
          $show24Hours = 'false';
+      $gmap_enabled=1;
+      if (!$this->settings->options['gmap_enabled'])
+         $gmap_enabled=0;
 
       ob_start();
       require($filename);
@@ -395,10 +398,10 @@ class EMEFS {
       <script type="text/javascript">
          jQuery(document).ready( function(){
                emefs_autocomplete_url = "<?php echo EMEFS_PLUGIN_URL; ?>emefs-locations-search.php";
-               emefs_gmap_enabled = 1;
+               emefs_gmap_enabled = <?php echo $gmap_enabled; ?>;
                show24Hours = <?php echo $show24Hours; ?>;
                emefs_gmap_hasSelectedLocation = <?php echo ($emefs_event_data['location_id'])?'1':'0'; ?>;
-               emefs_deploy(emefs_autocomplete_url, show24Hours);
+               emefs_deploy(emefs_autocomplete_url, show24Hours, emefs_gmap_enabled, emefs_gmap_hasSelectedLocation);
                });
       </script>
       <?php
@@ -571,9 +574,14 @@ class EMEFS {
       wp_register_script( 'jquery-mousewheel', EME_PLUGIN_URL.'js/jquery-mousewheel/jquery.mousewheel.min.js', array('jquery'));
       wp_register_script( 'jquery-timeentry', EME_PLUGIN_URL.'js/timeentry/jquery.timeentry.js', array('jquery','jquery-plugin','jquery-mousewheel'));
 
-      wp_register_script( 'google-maps', 'http://maps.google.com/maps/api/js?v=3.1&sensor=false');
-
-      wp_register_script( 'emefs', EMEFS_PLUGIN_URL.'emefs.js', array('jquery-datepick', 'jquery-timeentry', 'jquery-ui-autocomplete', 'google-maps'));
+      // we don't have '$this' here yet, so get the option values the other way
+      $settings = new EMEFS_Settings();
+      if ($settings->options['gmap_enabled']) {
+         wp_register_script( 'google-maps', 'http://maps.google.com/maps/api/js?v=3.1&sensor=false');
+         wp_register_script( 'emefs', EMEFS_PLUGIN_URL.'emefs.js', array('jquery-datepick', 'jquery-timeentry', 'jquery-ui-autocomplete', 'google-maps'));
+      } else {
+         wp_register_script( 'emefs', EMEFS_PLUGIN_URL.'emefs.js', array('jquery-datepick', 'jquery-timeentry', 'jquery-ui-autocomplete'));
+      }
       $style_filename = locate_template(array(
                'eme-frontend-submit/style.css',
                'events-made-easy-frontend-submit/style.css',
