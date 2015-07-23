@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Events Made Easy Frontend Submit package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Made Easy Frontend Submit 1.0.7\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/events-made-easy-"
+"Project-Id-Version: Events Made Easy Frontend Submit 1.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/events-made-easy-"
 "frontend-submit\n"
-"POT-Creation-Date: 2015-06-01 22:32:04+00:00\n"
+"POT-Creation-Date: 2015-07-23 22:12:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,60 +13,68 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: emefs-settings.php:49
+#: emefs-settings.php:50
 msgid "EME Frontend Submit"
 msgstr ""
 
-#: emefs-settings.php:109 emefs-settings.php:151
+#: emefs-settings.php:110 emefs-settings.php:152
 msgid "Events Made Easy Frontend Submit Settings"
 msgstr ""
 
-#: emefs-settings.php:129
+#: emefs-settings.php:130
 msgid "Save Options"
 msgstr ""
 
-#: emefs-settings.php:158
+#: emefs-settings.php:159
 msgid "State for new event"
 msgstr ""
 
-#: emefs-settings.php:158
+#: emefs-settings.php:159
 msgid "The state for a newly submitted event."
 msgstr ""
 
-#: emefs-settings.php:159
+#: emefs-settings.php:160
 msgid "Force location creation?"
 msgstr ""
 
-#: emefs-settings.php:159
+#: emefs-settings.php:160
 msgid ""
 "Check this option if you want the location to be always created, even if the "
 "user does not have the needed capability set in EME to create locations."
 msgstr ""
 
-#: emefs-settings.php:160
+#: emefs-settings.php:161
+msgid "Enable Google Maps integration?"
+msgstr ""
+
+#: emefs-settings.php:161
+msgid "Check this option to enable Google Map integration"
+msgstr ""
+
+#: emefs-settings.php:162
 msgid "Allow guest submit?"
 msgstr ""
 
-#: emefs-settings.php:160
+#: emefs-settings.php:162
 msgid "Check this option if you want guests also to be able to add new events."
 msgstr ""
 
-#: emefs-settings.php:161
+#: emefs-settings.php:163
 msgid "Success Page"
 msgstr ""
 
-#: emefs-settings.php:161
+#: emefs-settings.php:163
 msgid ""
 "The page a person will be redirected to after successfully submitting a new "
 "event if the person submitting the event has no right to see the newly "
 "submitted event."
 msgstr ""
 
-#: emefs-settings.php:162
+#: emefs-settings.php:164
 msgid "Guests not allowed page"
 msgstr ""
 
-#: emefs-settings.php:162
+#: emefs-settings.php:164
 msgid ""
 "The page a guest will be redirected to when trying to submit a new event "
 "when they are not allowed to do so."
@@ -103,29 +111,29 @@ msgstr ""
 msgid "Please enter a description for the event"
 msgstr ""
 
-#: emefs.php:228
+#: emefs.php:229
 msgid "Please select an Event Category"
 msgstr ""
 
-#: emefs.php:348
+#: emefs.php:350
 msgid "Events Made Easy plugin missing"
 msgstr ""
 
-#: emefs.php:349
+#: emefs.php:351
 msgid "This plugin requires the plugin 'Events Made Easy' to be installed."
 msgstr ""
 
-#: emefs.php:357 emefs.php:367
+#: emefs.php:359 emefs.php:369
 msgid "Basic Configuration is Missing"
 msgstr ""
 
-#: emefs.php:358
+#: emefs.php:360
 msgid ""
 "You have to configure the page where successful submissions will be "
 "redirected to."
 msgstr ""
 
-#: emefs.php:368
+#: emefs.php:370
 msgid ""
 "Since you have chosen not to accept guest submissions, you have to configure "
 "the page where to redirect unauthorized users."
@@ -200,9 +208,9 @@ msgstr ""
 msgid "Events Made Easy Frontend Submit"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (Events Made Easy Frontend Submit 1.0.7)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Events Made Easy Frontend Submit 1.0.8)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Events Made Easy Frontend Submit 1.0.7)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Events Made Easy Frontend Submit 1.0.8)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://www.e-dynamics.be/wordpress"
 msgstr ""
