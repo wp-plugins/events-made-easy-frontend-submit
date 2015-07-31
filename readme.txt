@@ -3,8 +3,8 @@ Contributors: liedekef
 Donate link: http://www.e-dynamics.be/wordpress
 Tags: events, frontend
 Requires at least: 3.9
-Tested up to: 4.2
-Stable tag: 1.0.8
+Tested up to: 4.2.3
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,8 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
-= 1.0.9 (2015//) =
+= 1.0.9 (2015/07/31) =
 * Feature: allow to enable/disable gmap integration
+* Feature: allow category disable too
 
 = 1.0.8 (2015/07/01) =
 * Bugfix: only require the use of categories if those are enabled in EME

@@ -4,7 +4,7 @@ Plugin Name: Events Made Easy Frontend Submit
 Plugin URI: http://www.e-dynamics.be/wordpress
 Description: Displays a form to allow people to enter events for the Events Made Easy plugin on a regular wordpress page.
 Author: Franky Van Liedekerke
-Version: 1.0.8
+Version: 1.0.9
 Author URI: http://www.e-dynamics.be/wordpress
 License: GNU General Public License
 */
