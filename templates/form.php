@@ -10,11 +10,14 @@
 			<?php EMEFS::error('event_name'); ?>
 		</div>
 		
+		<?php
+		if (get_option('eme_categories_enabled')) { ?>
 		<div class="input select">
 			<label for="event_category_ids"><?php _e('Select the Event Category','emefs'); ?> <small><?php _e('required','emefs'); ?></small></label><br/>
 			<?php EMEFS::field('event_category_ids'); ?>
 			<?php EMEFS::error('event_category_ids'); ?>
 		</div>
+		<?php } ?>
 		
 		<fieldset>
 		

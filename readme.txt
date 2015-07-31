@@ -41,8 +41,9 @@ The overloadable files at this moment are:
 
 == Changelog ==
 
-= 1.0.9 (2015//) =
+= 1.0.9 (2015/07/31) =
 * Feature: allow to enable/disable gmap integration
+* Feature: allow category disable too
 
 = 1.0.8 (2015/07/01) =
 * Bugfix: only require the use of categories if those are enabled in EME
