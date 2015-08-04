@@ -2,7 +2,7 @@
 			
 	<form id="new_post" name="new_post" method="post" action="<?php the_permalink(); ?>">
 	
-		<h2><?php _e('Event Information'); ?></h2>
+		<h2><?php _e('Event Information','emefs'); ?></h2>
 		
 		<div class="input">
 			<label for="title"><?php _e('Event Name','emefs'); ?> <small><?php _e('required','emefs'); ?></small></label><br />
@@ -100,7 +100,7 @@
 		</div>
 		
 		<p class="submit">
-			<?php EMEFS::end_form('Submit Event','emefs'); ?>
+			<?php EMEFS::end_form(__('Submit Event','emefs')); ?>
 		</p>
 		
 	</form>
