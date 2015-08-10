@@ -160,6 +160,8 @@ class EMEFS {
    function processForm() {
 
       global $emefs_event_errors, $emefs_event_data, $emefs_has_errors;
+      $eme_timezone=get_option('timezone_string');
+      $eme_date_obj=new DateTime(null,$eme_timezone);
 
       if (!$this->settings->options['success_page']) {
          return false;
@@ -184,13 +186,13 @@ class EMEFS {
          }
 
          if ( isset($event_data['event_start_time']) && !empty($event_data['event_start_time']) ) { 
-            $event_data['event_start_time'] = date ("H:i:00", strtotime ($event_data['event_start_time']));
+            $event_data['event_start_time'] = $eme_date_obj->setTimestamp(strtotime($event_data['event_start_time']))->format('H:i:00');
          } else {
             $event_data['event_start_time'] = '00:00';
          }
 
          if ( isset($event_data['event_end_time']) && !empty($event_data['event_end_time']) ) { 
-            $event_data['event_end_time'] = date ("H:i:00", strtotime ($event_data['event_end_time']));
+            $event_data['event_end_time'] = $eme_date_obj->setTimestamp(strtotime($event_data['event_end_time']))->format('H:i:00');
          } else {
             $event_data['event_end_time'] = $event_data['event_start_time'];
          }
@@ -201,8 +203,8 @@ class EMEFS {
             $event_data['event_end_date'] = $event_data['event_start_date'];
          }
 
-         $time_start = strtotime($event_data['event_start_date'].' '.$event_data['event_start_time']);
-         $time_end = strtotime($event_data['event_end_date'].' '.$event_data['event_end_time']);
+         $time_start = $eme_date_obj->setTimestamp(strtotime($event_data['event_start_date'].' '.$event_data['event_start_time']))->getTimestamp();
+         $time_end = $eme_date_obj->setTimestamp(strtotime($event_data['event_end_date'].' '.$event_data['event_end_time']))->getTimestamp();
 
          if(!$time_start){
             $emefs_event_errors['event_start_time'] = __('Check the start\'s date and time', 'emefs');
